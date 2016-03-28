@@ -1,18 +1,20 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
-	addr := ":9999"
-	commands := []string{
-		"uptime | awk '{print $10}'",
-		"python -c 'import random; print(random.random())'",
+	opts, err := ParseOpts()
+	if err != nil {
+		fmt.Println(err.Error())
+		os.Exit(1)
 	}
-
-	server := NewServer(commands)
+	addr := fmt.Sprintf(":%d", opts.port)
+	server := NewServer(opts.commands)
 	go server.Start()
 
 	http.Handle("/ws", server.WebSocketHandler())
