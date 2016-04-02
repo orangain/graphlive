@@ -15,7 +15,7 @@ GOX_OPTS=-os "linux darwin windows"
 VERSION_NAME=master
 
 gox:
-	gox $(GOX_OPTS) -output "build/${VERSION_NAME}/{{.OS}}_{{.Arch}}/{{.Dir}}"
+	gox $(GOX_OPTS) -output "build/${VERSION_NAME}/{{.Dir}}_${VERSION_NAME}_{{.OS}}_{{.Arch}}/{{.Dir}}"
 
 package:
 	./package.sh build/${VERSION_NAME} dist/${VERSION_NAME}
@@ -24,4 +24,4 @@ get-deploy-deps:
 	go get github.com/tcnksm/ghr
 
 release:
-	ghr --prerelease --replace prerelease dist/${VERSION_NAME}
+	ghr --prerelease --replace pre-release dist/${VERSION_NAME}
