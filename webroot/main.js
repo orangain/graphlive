@@ -6,7 +6,6 @@ var seriesStyles = [
 ];
 
 var series = null;
-var reconnectIntervalID = null;
 var messageElement = document.getElementById('message');
 var smoothie = new SmoothieChart();
 smoothie.streamTo(document.getElementById('graph'), 1000);
@@ -43,20 +42,14 @@ function connect() {
   };
   websocket.onopen = function(evt) {
     showMessage('Sucessfully connected.');
-    if (reconnectIntervalID !== null) {
-      clearInterval(reconnectIntervalID);
-      reconnectIntervalID = null;
-    }
   };
   websocket.onclose = function(evt) {
     var sleep = 5;
     showMessage('Connection closed. Try reconnecting every ' + sleep + ' seconds.');
 
-    if (reconnectIntervalID === null) {
-      reconnectIntervalID = setInterval(function() {
-        connect();
-      }, sleep * 1000);
-    }
+    setTimeout(function() {
+      connect();
+    }, sleep * 1000);
   };
 }
 
