@@ -1,6 +1,6 @@
-.PHONY: all get-deps get-build-deps clean gox package
+.PHONY: all get-deps get-build-deps clean gox package release
 
-all: get-deps get-build-deps clean gox package release
+all: get-deps get-build-deps clean gox package
 
 get-deps:
 	go get golang.org/x/net/websocket
