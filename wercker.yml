@@ -26,6 +26,9 @@ build:
     # at the right place in the workspace tree
     - setup-go-workspace
 
+    - install-packages:
+        packages: zip
+
     # Gets the dependencies
     - script:
         name: go get
