@@ -13,6 +13,13 @@ get-build-deps:
 clean:
 	rm -rf build
 
+GOX_OPTS=-os "linux darwin windows"
+
 .PHONY: gox
 gox:
-	gox -os "linux darwin windows" -output "build/{{.OS}}_{{.Arch}}/{{.Dir}}"
+	gox $(GOX_OPTS) -output "build/{{.OS}}_{{.Arch}}/{{.Dir}}"
+
+# For Go 1.4 or earlier
+.PHONY: gox-build-toolchain
+gox-build-toolchain:
+	gox $(GOX_OPTS) -build-toolchain
