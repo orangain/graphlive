@@ -49,4 +49,4 @@ build:
         name: cross-compile
         code: |
           make
-          mv build/* $WERCKER_OUTPUT_DIR
+          mv build/* $WERCKER_REPORT_ARTIFACTS_DIR
