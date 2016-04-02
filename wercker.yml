@@ -56,8 +56,12 @@ build:
 
 deploy:
   github-release:
+    - script:
+        name: list files
+        code: |
+          ls -l dist/master
     - tcnksm/ghr:
         token: $GITHUB_TOKEN
-        input: dist
+        input: dist/master
         pre_release: true       # Relase as pre-release default is false
         replace: true           # Replace artifacts if it's already upladed
