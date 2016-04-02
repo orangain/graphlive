@@ -1,25 +1,25 @@
-.PHONY: all
-all: get-deps get-build-deps clean gox
+.PHONY: all get-deps get-build-deps clean gox package
 
-.PHONY: get-deps
+all: get-deps get-build-deps clean gox package release
+
 get-deps:
 	go get golang.org/x/net/websocket
 
-.PHONY: get-build-deps
 get-build-deps:
 	go get github.com/mitchellh/gox
+	go get github.com/tcnksm/ghr
 
-.PHONY: clean
 clean:
-	rm -rf build
+	rm -rf build dist
 
 GOX_OPTS=-os "linux darwin windows"
+VERSION_NAME=master
 
-.PHONY: gox
 gox:
-	gox $(GOX_OPTS) -output "build/{{.OS}}_{{.Arch}}/{{.Dir}}"
+	gox $(GOX_OPTS) -output "build/${VERSION_NAME}/{{.OS}}_{{.Arch}}/{{.Dir}}"
 
-# For Go 1.4 or earlier
-.PHONY: gox-build-toolchain
-gox-build-toolchain:
-	gox $(GOX_OPTS) -build-toolchain
+package:
+	./package.sh build/${VERSION_NAME} dist/${VERSION_NAME}
+
+release:
+	ghr --prerelease --replace prerelease dist/${VERSION_NAME}

@@ -44,9 +44,16 @@ build:
         code: |
           go test -short
 
-    # Compile cross-platform binaries
+    # Cross-compile binaries and package them
     - script:
-        name: cross-compile
+        name: package
         code: |
           make
-          mv build/* $WERCKER_REPORT_ARTIFACTS_DIR
+          mv dist ${WERCKER_OUTPUT_DIR}
+
+deploy:
+  steps:
+    - script:
+        name: ghr
+        code: |
+          make release

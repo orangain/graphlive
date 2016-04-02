@@ -28,3 +28,4 @@ _testmain.go
 # Build artifacts
 /graphlive
 /build/
+/dist/
