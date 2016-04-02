@@ -1,3 +1,5 @@
+#!/bin/bash
+
 BINARY_DIR=$1
 ARCHIVE_DIR=$2
 
