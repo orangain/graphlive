@@ -18,7 +18,11 @@ func main() {
 	go server.Start()
 
 	http.Handle("/ws", server.WebSocketHandler())
-	http.Handle("/", http.FileServer(http.Dir("webroot")))
+	if opts.webroot == "" {
+		http.Handle("/", http.FileServer(assetFS()))
+	} else {
+		http.Handle("/", http.FileServer(http.Dir(opts.webroot)))
+	}
 	log.Println("Listening on", addr)
 	if err := http.ListenAndServe(addr, nil); err != nil {
 		panic("ListenAndServe: " + err.Error())

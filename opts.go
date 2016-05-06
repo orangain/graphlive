@@ -21,6 +21,7 @@ func (s *stringslice) Set(value string) error {
 type Opts struct {
 	commands stringslice
 	port     int
+	webroot  string
 }
 
 func ParseOpts() (result Opts, err error) {
@@ -32,6 +33,8 @@ func ParseOpts() (result Opts, err error) {
 	flag.BoolVar(&help, "help", false, "")
 	flag.IntVar(&opts.port, "p", 9999, "")
 	flag.IntVar(&opts.port, "port", 9999, "")
+	flag.StringVar(&opts.webroot, "r", "", "")
+	flag.StringVar(&opts.webroot, "webroot", "", "")
 	flag.Parse()
 
 	if help || len(opts.commands) == 0 {
@@ -41,9 +44,11 @@ func ParseOpts() (result Opts, err error) {
 
 Options:
     -p PORT, --port PORT
-        Port to listen on (default 9999)
+        Port to listen on (default: 9999)
     -h, --help
-        Show this help message`)
+        Show this help message
+    -r WEBROOT, --webroot WEBROOT
+        Root directory of web server (default: embedded resources)`)
 	} else {
 		return opts, nil
 	}
