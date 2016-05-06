@@ -1,15 +1,20 @@
-.PHONY: all get-deps get-build-deps clean gox package get-deploy-deps release
+.PHONY: all get-deps get-build-deps clean bindata gox package get-deploy-deps release
 
-all: get-deps get-build-deps clean gox package
+all: get-deps get-build-deps clean bindata gox package
 
 get-deps:
 	go get golang.org/x/net/websocket
 
 get-build-deps:
 	go get github.com/mitchellh/gox
+	go get github.com/jteeuwen/go-bindata/...
+	go get github.com/elazarl/go-bindata-assetfs/...
 
 clean:
 	rm -rf build dist
+
+bindata:
+	go-bindata-assetfs webroot/...
 
 GOX_OPTS=-os "linux darwin windows"
 VERSION_NAME=master
