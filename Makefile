@@ -16,7 +16,7 @@ clean:
 bindata:
 	go-bindata-assetfs webroot/...
 
-GOX_OPTS=-os "linux darwin windows"
+GOX_OPTS=-osarch "linux/amd64 linux/386 linux/arm darwin/amd64 darwin/386 windows/amd64 windows/386"
 VERSION_NAME=master
 
 gox:
